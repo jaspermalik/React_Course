@@ -11,30 +11,16 @@ import './index.css'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-class Header extends Component {
-  renderGoodWord(goodWord, badWord) {
-    const isGoodWord = false
-    return isGoodWord ? goodWord : badWord
-  }
+class Title extends Component {
   render() {
-    const word = 'is good'
-    const className = 'h2'
-    const isSale = false
-    const hasName = false
+    return <h1>React 小书</h1>
+  }
+}
+class Header extends Component {
+  render() {
     return (
       <div>
-        <h1>
-          React小书{word} {1 + 2}{' '}
-          {(function() {
-            return 'is very good'
-          })()}
-        </h1>
-        <h2 className={className}>Nice book</h2>
-        <h3>
-          is no sale? {isSale ? <strong>Yes</strong> : <span>Sorry</span>}
-        </h3>
-        <h3>Yo! {hasName ? <strong>whh</strong> : null}</h3>
-        <h4>{this.renderGoodWord('好好学习，天天向上', '玩物丧志')}</h4>
+        <Title />
       </div>
     )
   }
