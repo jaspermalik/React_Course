@@ -12,8 +12,15 @@ import './index.css'
 // serviceWorker.unregister();
 
 class Title extends Component {
+  handleClickOnTitle(word, e) {
+    console.log(e.target.innerHTML)
+    console.log(this)
+    console.log(word)
+  }
   render() {
-    return <h1>React 小书</h1>
+    return (
+      <h1 onClick={this.handleClickOnTitle.bind(this, 'Hello')}>React 小书</h1>
+    )
   }
 }
 class Header extends Component {
