@@ -12,32 +12,26 @@ import './index.css'
 // serviceWorker.unregister();
 
 class LikeButton extends Component {
+  static defaultProps = {
+    likedText: '取消',
+    unlikedText: '点赞'
+  }
   constructor() {
     super()
-    this.state = { name: 'whh', isLiked: false }
+    this.state = { isLiked: false }
   }
   handleClickOnLikeButton() {
-    /* console.log(this.state.isLiked)
     this.setState({ isLiked: !this.state.isLiked })
-    console.log(this.state.isLiked) */
-    this.setState(prevState => {
-      return { count: 0 }
-    })
-    this.setState(prevState => {
-      return { count: prevState.count + 1 }
-    })
-    this.setState(prevState => {
-      return { count: prevState.count + 2 }
-    })
+    if (this.props.onClick) {
+      this.props.onClick()
+    }
   }
   render() {
     return (
       <div>
-        <i>{this.state.name}点了</i>
         <button onClick={this.handleClickOnLikeButton.bind(this)}>
-          {this.state.isLiked ? '取消' : '点赞'}👍
+          {this.state.isLiked ? this.props.likedText : this.props.unlikedText}👍
         </button>
-        <div>{this.state.count}</div>
       </div>
     )
   }
@@ -86,13 +80,39 @@ class Footer extends Component {
 }
 
 class Index extends Component {
+  constructor() {
+    super()
+    this.state = {
+      likedText: '取消',
+      unlikedText: '点赞'
+    }
+  }
+  handleClickOnChange() {
+    this.setState({
+      likedText: '❌',
+      unlikedText: '☑️'
+    })
+  }
   render() {
     return (
       <div>
         <Header />
         <Main />
         <Footer />
-        <LikeButton />
+        <LikeButton
+          likedText="已赞"
+          unlikedText="赞"
+          onClick={() => {
+            console.log('Click on like button')
+          }}
+        />
+        <LikeButton
+          likedText={this.state.likedText}
+          unlikedText={this.state.unlikedText}
+        />
+        <button onClick={this.handleClickOnChange.bind(this)}>
+          修改wording
+        </button>
       </div>
     )
   }
