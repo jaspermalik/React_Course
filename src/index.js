@@ -11,6 +11,37 @@ import './index.css'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
+class LikeButton extends Component {
+  constructor() {
+    super()
+    this.state = { name: 'whh', isLiked: false }
+  }
+  handleClickOnLikeButton() {
+    /* console.log(this.state.isLiked)
+    this.setState({ isLiked: !this.state.isLiked })
+    console.log(this.state.isLiked) */
+    this.setState(prevState => {
+      return { count: 0 }
+    })
+    this.setState(prevState => {
+      return { count: prevState.count + 1 }
+    })
+    this.setState(prevState => {
+      return { count: prevState.count + 2 }
+    })
+  }
+  render() {
+    return (
+      <div>
+        <i>{this.state.name}点了</i>
+        <button onClick={this.handleClickOnLikeButton.bind(this)}>
+          {this.state.isLiked ? '取消' : '点赞'}👍
+        </button>
+        <div>{this.state.count}</div>
+      </div>
+    )
+  }
+}
 class Title extends Component {
   handleClickOnTitle(word, e) {
     console.log(e.target.innerHTML)
@@ -61,6 +92,7 @@ class Index extends Component {
         <Header />
         <Main />
         <Footer />
+        <LikeButton />
       </div>
     )
   }
