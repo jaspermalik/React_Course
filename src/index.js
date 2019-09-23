@@ -11,113 +11,33 @@ import './index.css'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-const HelloWorld = props => {
-  const sayHi = event => alert('Hello World ' + props.name)
-  return <div onClick={sayHi}>Hello World</div>
-}
-class LikeButton extends Component {
-  static defaultProps = {
-    likedText: '取消',
-    unlikedText: '点赞'
-  }
-  constructor() {
-    super()
-    this.state = { isLiked: false }
-  }
-  handleClickOnLikeButton() {
-    this.setState({ isLiked: !this.state.isLiked })
-    if (this.props.onClick) {
-      this.props.onClick()
-    }
-  }
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleClickOnLikeButton.bind(this)}>
-          {this.state.isLiked ? this.props.likedText : this.props.unlikedText}👍
-        </button>
-      </div>
-    )
-  }
-}
-class Title extends Component {
-  handleClickOnTitle(word, e) {
-    console.log(e.target.innerHTML)
-    console.log(this)
-    console.log(word)
-  }
-  render() {
-    return (
-      <h1 onClick={this.handleClickOnTitle.bind(this, 'Hello')}>React 小书</h1>
-    )
-  }
-}
-class Header extends Component {
-  render() {
-    return (
-      <div>
-        <Title />
-        <h2>This is Header</h2>
-      </div>
-    )
-  }
-}
+const users = [
+  { username: 'Jerry', age: 21, gender: 'male' },
+  { username: 'Tomy', age: 22, gender: 'male' },
+  { username: 'Lily', age: 19, gender: 'female' },
+  { username: 'Lucy', age: 20, gender: 'female' }
+]
 
-class Main extends Component {
+class User extends Component {
   render() {
+    const { user } = this.props
     return (
       <div>
-        <h2>This is main content</h2>
+        <div>姓名:{user.username}</div>
+        <div>年龄:{user.age}</div>
+        <div>性别:{user.gender}</div>
+        <hr />
       </div>
     )
   }
 }
-
-class Footer extends Component {
-  render() {
-    return (
-      <div>
-        <h2>This is footer</h2>
-      </div>
-    )
-  }
-}
-
 class Index extends Component {
-  constructor() {
-    super()
-    this.state = {
-      likedText: '取消',
-      unlikedText: '点赞'
-    }
-  }
-  handleClickOnChange() {
-    this.setState({
-      likedText: '❌',
-      unlikedText: '☑️'
-    })
-  }
   render() {
     return (
       <div>
-        <Header />
-        <Main />
-        <Footer />
-        <LikeButton
-          likedText="已赞"
-          unlikedText="赞"
-          onClick={() => {
-            console.log('Click on like button')
-          }}
-        />
-        <LikeButton
-          likedText={this.state.likedText}
-          unlikedText={this.state.unlikedText}
-        />
-        <button onClick={this.handleClickOnChange.bind(this)}>
-          修改wording
-        </button>
-        <HelloWorld name="whh" />
+        {users.map((user, i) => (
+          <User user={user} key={i} />
+        ))}
       </div>
     )
   }
