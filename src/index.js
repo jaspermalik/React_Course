@@ -11,6 +11,10 @@ import './index.css'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
+const HelloWorld = props => {
+  const sayHi = event => alert('Hello World ' + props.name)
+  return <div onClick={sayHi}>Hello World</div>
+}
 class LikeButton extends Component {
   static defaultProps = {
     likedText: '取消',
@@ -113,6 +117,7 @@ class Index extends Component {
         <button onClick={this.handleClickOnChange.bind(this)}>
           修改wording
         </button>
+        <HelloWorld name="whh" />
       </div>
     )
   }
