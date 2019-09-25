@@ -11,33 +11,55 @@ import './index.css'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-const users = [
-  { username: 'Jerry', age: 21, gender: 'male' },
-  { username: 'Tomy', age: 22, gender: 'male' },
-  { username: 'Lily', age: 19, gender: 'female' },
-  { username: 'Lucy', age: 20, gender: 'female' }
-]
+class Header extends Component {
+  constructor() {
+    super()
+    console.log('construct')
+  }
 
-class User extends Component {
+  componentWillMount() {
+    console.log('component will mount')
+  }
+
+  componentDidMount() {
+    console.log('component did mount')
+  }
+
+  componentWillUnmount() {
+    console.log('component will unmount')
+  }
+
   render() {
-    const { user } = this.props
+    console.log('render')
     return (
       <div>
-        <div>姓名:{user.username}</div>
-        <div>年龄:{user.age}</div>
-        <div>性别:{user.gender}</div>
-        <hr />
+        <h1 className="title">React 小书</h1>
       </div>
     )
   }
 }
+
 class Index extends Component {
+  constructor() {
+    super()
+    this.state = {
+      isShowHeader: true
+    }
+  }
+
+  handleShowOrHide() {
+    this.setState({
+      isShowHeader: !this.state.isShowHeader
+    })
+  }
+
   render() {
     return (
       <div>
-        {users.map((user, i) => (
-          <User user={user} key={i} />
-        ))}
+        {this.state.isShowHeader ? <Header /> : null}
+        <button onClick={this.handleShowOrHide.bind(this)}>
+          显示或者隐藏标题
+        </button>
       </div>
     )
   }
