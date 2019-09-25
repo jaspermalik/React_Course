@@ -10,22 +10,29 @@ import './index.css'
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
-class Card extends Component {
+class Editor extends Component {
+  constructor() {
+    super()
+    this.state = {
+      content: '<h1>React.js 小书</h1>',
+      color: 'red'
+    }
+  }
+
+  changeColor() {
+    this.setState({ color: 'royalblue' })
+  }
+
   render() {
     return (
-      <div className="card">
-        <div className="card-content">{this.props.children}</div>
-      </div>
+      <div
+        style={{ fontSize: '12px', color: this.state.color }}
+        className="editor-wrapper"
+        dangerouslySetInnerHTML={{ __html: this.state.content }}
+        onClick={this.changeColor.bind(this)}
+      ></div>
     )
   }
 }
 
-ReactDOM.render(
-  <Card>
-    <h2>React.js 小书</h2>
-    <div>开源、免费、专业、简单</div>
-    订阅：
-    <input />
-  </Card>,
-  document.getElementById('root')
-)
+ReactDOM.render(<Editor />, document.getElementById('root'))

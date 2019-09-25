@@ -12,14 +12,6 @@ code {
     monospace;
 }
 
-.card {
-  max-width: 900px;
-  margin: 20px auto;
-  width: 300px;
-  padding: 20px;
-  box-shadow: 0 0 0 2px #f1f1f1;
-}
-
-.card h2 {
-  margin: 0;
+.editor-wrapper {
+  cursor: pointer;
 }
