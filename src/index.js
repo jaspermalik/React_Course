@@ -10,30 +10,26 @@ import './index.css'
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
-
-class Header extends Component {
+class Clock extends Component {
   constructor() {
     super()
-    console.log('construct')
+    this.state = { date: new Date() }
   }
-
   componentWillMount() {
-    console.log('component will mount')
+    this.time = setInterval(() => {
+      this.setState({ date: new Date() })
+    }, 1000)
   }
-
-  componentDidMount() {
-    console.log('component did mount')
-  }
-
   componentWillUnmount() {
-    console.log('component will unmount')
+    clearTimeout(this.time)
   }
-
   render() {
-    console.log('render')
     return (
       <div>
-        <h1 className="title">React 小书</h1>
+        <h1>
+          <p>现在时间是</p>
+          {this.state.date.toLocaleTimeString()}
+        </h1>
       </div>
     )
   }
@@ -42,23 +38,19 @@ class Header extends Component {
 class Index extends Component {
   constructor() {
     super()
-    this.state = {
-      isShowHeader: true
-    }
+    this.state = { isShowClock: true }
   }
 
   handleShowOrHide() {
-    this.setState({
-      isShowHeader: !this.state.isShowHeader
-    })
+    this.setState({ isShowClock: !this.state.isShowClock })
   }
 
   render() {
     return (
       <div>
-        {this.state.isShowHeader ? <Header /> : null}
+        {this.state.isShowClock ? <Clock /> : null}
         <button onClick={this.handleShowOrHide.bind(this)}>
-          显示或者隐藏标题
+          显示或隐藏时钟
         </button>
       </div>
     )
