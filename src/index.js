@@ -35,6 +35,14 @@ class Clock extends Component {
   }
 }
 
+class AutoFocusInput extends Component {
+  componentDidMount() {
+    this.input.focus()
+  }
+  render() {
+    return <input ref={input => (this.input = input)} />
+  }
+}
 class Index extends Component {
   constructor() {
     super()
@@ -52,6 +60,7 @@ class Index extends Component {
         <button onClick={this.handleShowOrHide.bind(this)}>
           显示或隐藏时钟
         </button>
+        <AutoFocusInput />
       </div>
     )
   }
