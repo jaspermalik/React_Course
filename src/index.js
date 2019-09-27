@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import PropTypes from 'prop-types'
+import wrapWithLoadData from './wrapWithLoadData'
 // import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
@@ -12,25 +12,31 @@ import PropTypes from 'prop-types'
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-class Comment extends Component {
-  static propTypes = {
-    comment: PropTypes.object.isRequired
-  }
-
+class InputWithUserName extends Component {
   render() {
-    const { comment } = this.props
+    return <input value={this.props.data} />
+  }
+}
+
+class TextareaWithContent extends Component {
+  render() {
+    return <textarea value={this.props.data} />
+  }
+}
+
+TextareaWithContent = wrapWithLoadData(TextareaWithContent, 'content')
+
+InputWithUserName = wrapWithLoadData(InputWithUserName, 'username')
+
+class Index extends Component {
+  render() {
     return (
-      <div className="comment">
-        <div className="comment-user">
-          <span>{comment.username}</span>
-        </div>
-        <p>{comment.content}</p>
+      <div>
+        <InputWithUserName />
+        <TextareaWithContent />
       </div>
     )
   }
 }
 
-ReactDOM.render(
-  <Comment comment={{ username: 'whh', content: 'Rich Men' }} />,
-  document.getElementById('root')
-)
+ReactDOM.render(<Index />, document.getElementById('root'))
