@@ -1,73 +1,47 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import './index.css'
-class Index extends Component {
-  static childContextTypes = {
-    themeColor: PropTypes.string
-  }
-  constructor() {
-    super()
-    this.state = { themeColor: 'royalblue' }
-  }
-  componentWillMount() {
-    this.setState({ themeColor: 'green' })
-  }
-  getChildContext() {
-    return { themeColor: this.state.themeColor }
-  }
-  render() {
-    return (
-      <div>
-        <Header />
-        <Main />
-      </div>
-    )
+const appState = {
+  title: {
+    text: 'React.js 小书',
+    color: 'red'
+  },
+  content: {
+    text: 'React.js小书',
+    color: 'blue'
   }
 }
 
-class Header extends Component {
-  render() {
-    return (
-      <div>
-        <h2>This is Header</h2>
-        <Title />
-      </div>
-    )
+function renderApp(appState) {
+  renderTitle(appState.title)
+  renderContent(appState.content)
+}
+
+function renderTitle(title) {
+  const titleDom = document.getElementById('title')
+  titleDom.innerHTML = title.text
+  titleDom.style.color = title.color
+}
+
+function renderContent(content) {
+  const contentDom = document.getElementById('content')
+  contentDom.innerHTML = content.text
+  contentDom.style.color = content.color
+}
+
+function dispath(action) {
+  switch (action.type) {
+    case 'UPDATE_TITLE_TEXT':
+      appState.title.text = action.text
+      break
+    case 'UPDATE_TITLE_COLOR':
+      appState.title.color = action.color
+      break
+    default:
+      break
   }
 }
 
-class Main extends Component {
-  render() {
-    return (
-      <div>
-        <h2>This is main</h2>
-        <Content />
-      </div>
-    )
-  }
-}
+renderApp(appState)
 
-class Title extends Component {
-  static contextTypes = {
-    themeColor: PropTypes.string
-  }
-  render() {
-    return <h1 style={{ color: this.context.themeColor }}>React.js 小书标题</h1>
-  }
-}
+dispath({ type: 'UPDATE_TITLE_TEXT', text: 'Hello World' })
+dispath({ type: 'UPDATE_TITLE_COLOR', color: 'yellow' })
 
-class Content extends Component {
-  static contextTypes = {
-    themeColor: PropTypes.string
-  }
-  render() {
-    return (
-      <div>
-        <h2 style={{ color: this.context.themeColor }}>React.js小书内容</h2>
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(<Index />, document.getElementById('root'))
+renderApp(appState)
