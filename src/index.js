@@ -1,4 +1,4 @@
-const appState = {
+let appState = {
   title: {
     text: 'React.js 小书',
     color: 'red'
@@ -6,6 +6,10 @@ const appState = {
   content: {
     text: 'React.js小书',
     color: 'blue'
+  },
+  footer: {
+    text: '这是页尾',
+    color: 'pink'
   }
 }
 
@@ -26,22 +30,32 @@ function renderContent(content) {
   contentDom.style.color = content.color
 }
 
-function dispath(action) {
+function createStore(state, stateChanger) {
+  const listeners = []
+  const subscribe = listener => listeners.push(listener)
+  const getState = () => state
+  const dispath = action => {
+    stateChanger(state, action)
+    listeners.forEach(listener => listener())
+  }
+  return { getState, dispath, subscribe }
+}
+
+function stateChanger(state, action) {
   switch (action.type) {
     case 'UPDATE_TITLE_TEXT':
-      appState.title.text = action.text
+      state.title.text = action.text
       break
     case 'UPDATE_TITLE_COLOR':
-      appState.title.color = action.color
+      state.title.color = action.color
       break
     default:
       break
   }
 }
 
-renderApp(appState)
+const store = createStore(appState, stateChanger)
+store.subscribe(() => renderApp(store.getState()))
 
-dispath({ type: 'UPDATE_TITLE_TEXT', text: 'Hello World' })
-dispath({ type: 'UPDATE_TITLE_COLOR', color: 'yellow' })
-
-renderApp(appState)
+store.dispath({ type: 'UPDATE_TITLE_TEXT', text: 'Hello World' })
+store.dispath({ type: 'UPDATE_TITLE_COLOR', color: 'orange' })
